@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
@@ -21,5 +22,5 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
   void transferFunds(Long payerId, Long payeeId, BigDecimal value);
 
   @Query(value = "SELECT balance >= ?1 FROM accounts WHERE id = ?2", nativeQuery = true)
-  Boolean checkBalance(BigDecimal value, Long id);
+  Optional<Boolean> checkBalance(BigDecimal value, Long id);
 }
