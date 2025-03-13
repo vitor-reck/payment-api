@@ -15,6 +15,10 @@ public class CustomerService {
     return customerRepository.findById(id).get();
   }
 
+  public String findCpfById(Long id) {
+    return customerRepository.findCpfById(id);
+  }
+
   public void createCustomer(Customer customer) {
     customerRepository.save(customer);
   }
