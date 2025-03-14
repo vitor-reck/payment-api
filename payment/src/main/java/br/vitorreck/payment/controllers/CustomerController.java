@@ -1,5 +1,7 @@
 package br.vitorreck.payment.controllers;
 
+import br.vitorreck.payment.entities.dto.customer.CustomerRequestDTO;
+import br.vitorreck.payment.entities.dto.customer.CustomerResponseDTO;
 import br.vitorreck.payment.entities.model.Customer;
 import br.vitorreck.payment.services.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +17,13 @@ public class CustomerController {
   private final CustomerService customerService;
 
   @GetMapping("{id}")
-  public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
+  public ResponseEntity<CustomerResponseDTO> getCustomerById(@PathVariable Long id) {
     return ResponseEntity.status(HttpStatus.OK).body(customerService.findCustomerById(id));
   }
 
   @PostMapping
-  public ResponseEntity<String> postCustomer(@RequestBody Customer customer) {
-    customerService.createCustomer(customer);
+  public ResponseEntity<String> postCustomer(@RequestBody CustomerRequestDTO requestDTO) {
+    customerService.createCustomer(requestDTO);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
