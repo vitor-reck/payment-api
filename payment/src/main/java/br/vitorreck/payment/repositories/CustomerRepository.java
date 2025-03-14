@@ -12,4 +12,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
   @Query(value = "SELECT cpf FROM customers WHERE id = ?1", nativeQuery = true)
   Optional<String> findCpfById(Long id);
+
+  @Query(value = "SELECT cpf FROM customers WHERE cpf = ?1", nativeQuery = true)
+  Optional<String> findCpf(String cpf);
 }

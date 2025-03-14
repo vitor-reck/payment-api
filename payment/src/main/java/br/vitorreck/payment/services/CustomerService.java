@@ -1,6 +1,9 @@
 package br.vitorreck.payment.services;
 
+import br.vitorreck.payment.entities.dto.customer.CustomerRequestDTO;
+import br.vitorreck.payment.entities.dto.customer.CustomerResponseDTO;
 import br.vitorreck.payment.entities.model.Customer;
+import br.vitorreck.payment.mappers.CustomerMapper;
 import br.vitorreck.payment.repositories.CustomerRepository;
 import com.google.gson.Gson;
 import jakarta.persistence.EntityExistsException;
@@ -18,10 +21,12 @@ public class CustomerService {
   private static final String CUSTOMER_ALREADY_EXISTS = "Customer already exists";
   private final Gson gson = new Gson();
   private final CustomerRepository customerRepository;
+  private final CustomerMapper customerMapper;
 
-  public Customer findCustomerById(Long id) {
+  public CustomerResponseDTO findCustomerById(Long id) {
     log.info("Retrieving customer with ID: {}", id);
     return customerRepository.findById(id)
+        .map(customerMapper::maptoDTO)
         .orElseThrow(() -> new EntityNotFoundException(CUSTOMER_NOT_FOUND));
   }
 
@@ -30,17 +35,15 @@ public class CustomerService {
         .orElseThrow(() -> new EntityNotFoundException(CUSTOMER_NOT_FOUND));
   }
 
-  public void createCustomer(Customer customer) {
-    customerRepository.findById(customer.getId())
+  public void createCustomer(CustomerRequestDTO requestDTO) {
+    customerRepository.findCpf(requestDTO.cpf())
         .ifPresentOrElse(c -> {
             throw new EntityExistsException(CUSTOMER_ALREADY_EXISTS);
           },
             () -> {
-              log.info("Creating customer: {}", gson.toJson(customer));
-              customerRepository.save(customer);
+              log.info("Creating customer: {}", gson.toJson(requestDTO));
+              customerRepository.save(customerMapper.mapToEntity(requestDTO));
         });
-
-    customerRepository.save(customer);
   }
 
   public void removeCustomerById(Long id) {
