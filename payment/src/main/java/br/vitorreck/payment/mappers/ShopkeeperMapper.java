@@ -10,11 +10,11 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface ShopkeeperMapper {
 
-  ShopkeeperMapper MAPPER = Mappers.getMapper(ShopkeeperMapper.class);
+  ShopkeeperMapper INSTANCE = Mappers.getMapper(ShopkeeperMapper.class);
 
   @Mapping(source = "shopkeeper", target = ".")
-  ShopkeeperResponseDTO mapToDTO(Shopkeeper shopkeeper);
+  ShopkeeperResponseDTO toDTO(Shopkeeper shopkeeper);
 
   @Mapping(source = "requestDTO", target = ".")
-  Shopkeeper mapToEntity(ShopkeeperRequestDTO requestDTO);
+  Shopkeeper toEntity(ShopkeeperRequestDTO requestDTO);
 }

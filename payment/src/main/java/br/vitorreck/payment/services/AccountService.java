@@ -19,7 +19,7 @@ public class AccountService {
 
   public Boolean checkSufficientFunds(BigDecimal value, Long payerId) {
     return accountRepository.checkBalance(value, payerId)
-        .filter(b -> Boolean.TRUE.equals(b))
+        .filter(Boolean.TRUE::equals)
         .orElseThrow(() -> new BusinessException(INSUFFICIENT_FUNDS));
   }
 

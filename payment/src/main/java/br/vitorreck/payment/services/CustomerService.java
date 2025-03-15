@@ -26,7 +26,7 @@ public class CustomerService {
   public CustomerResponseDTO findCustomerById(Long id) {
     log.info("Retrieving customer with ID: {}", id);
     return customerRepository.findById(id)
-        .map(customerMapper::maptoDTO)
+        .map(customerMapper::toDTO)
         .orElseThrow(() -> new EntityNotFoundException(CUSTOMER_NOT_FOUND));
   }
 
@@ -42,7 +42,7 @@ public class CustomerService {
           },
             () -> {
               log.info("Creating customer: {}", gson.toJson(requestDTO));
-              customerRepository.save(customerMapper.mapToEntity(requestDTO));
+              customerRepository.save(customerMapper.toEntity(requestDTO));
         });
   }
 

@@ -7,14 +7,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper()
+@Mapper
 public interface CustomerMapper {
 
-  CustomerMapper MAPPER = Mappers.getMapper(CustomerMapper.class);
+  CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
   @Mapping(source = "customer", target = ".")
-  CustomerResponseDTO maptoDTO(Customer customer);
+  CustomerResponseDTO toDTO(Customer customer);
 
   @Mapping(source = "requestDTO", target = ".")
-  Customer mapToEntity(CustomerRequestDTO requestDTO);
+  Customer toEntity(CustomerRequestDTO requestDTO);
 }
