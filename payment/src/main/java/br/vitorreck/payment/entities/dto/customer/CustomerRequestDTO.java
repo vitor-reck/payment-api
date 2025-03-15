@@ -3,7 +3,9 @@ package br.vitorreck.payment.entities.dto.customer;
 import br.vitorreck.payment.entities.model.Account;
 import br.vitorreck.payment.entities.model.Email;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 
+@Builder
 public record CustomerRequestDTO(
 
     Long id,

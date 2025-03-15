@@ -26,7 +26,7 @@ public class ShopkeeperService {
   public ShopkeeperResponseDTO findShopkeeperById(Long id) {
     log.info("Retrieving shopkeeper with ID: {}", id);
     return shopkeeperRepository.findById(id)
-        .map(shopkeeperMapper::mapToDTO)
+        .map(shopkeeperMapper::toDTO)
         .orElseThrow(() -> new EntityNotFoundException(SHOPKEEPER_NOT_FOUND));
   }
 
@@ -37,7 +37,7 @@ public class ShopkeeperService {
           },
             () -> {
               log.info("Creating shopkeeper: {}", gson.toJson(requestDTO));
-              shopkeeperRepository.save(shopkeeperMapper.mapToEntity(requestDTO));
+              shopkeeperRepository.save(shopkeeperMapper.toEntity(requestDTO));
         });
   }
 

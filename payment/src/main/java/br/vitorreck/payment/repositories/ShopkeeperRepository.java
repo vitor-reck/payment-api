@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ShopkeeperRepository extends JpaRepository<Shopkeeper, Long> {
 
-  @Query(value = "SELECT cnpj FROM shopkeepers WHERE cnpj = 1?")
+  @Query(value = "SELECT cnpj FROM shopkeepers WHERE cnpj = 1?", nativeQuery = true)
   Optional<String> findCnpj(String cnpj);
 }
