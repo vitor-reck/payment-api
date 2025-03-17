@@ -4,6 +4,7 @@ import br.vitorreck.payment.entities.dto.customer.CustomerRequestDTO;
 import br.vitorreck.payment.entities.dto.customer.CustomerResponseDTO;
 import br.vitorreck.payment.entities.model.Customer;
 import br.vitorreck.payment.services.CustomerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class CustomerController {
   }
 
   @PostMapping
-  public ResponseEntity<String> postCustomer(@RequestBody CustomerRequestDTO requestDTO) {
+  public ResponseEntity<String> postCustomer(@Valid @RequestBody CustomerRequestDTO requestDTO) {
     customerService.createCustomer(requestDTO);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }

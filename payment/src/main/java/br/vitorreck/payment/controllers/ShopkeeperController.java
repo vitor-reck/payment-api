@@ -4,6 +4,7 @@ import br.vitorreck.payment.entities.dto.shopkeepers.ShopkeeperRequestDTO;
 import br.vitorreck.payment.entities.dto.shopkeepers.ShopkeeperResponseDTO;
 import br.vitorreck.payment.entities.model.Shopkeeper;
 import br.vitorreck.payment.services.ShopkeeperService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class ShopkeeperController {
   }
 
   @PostMapping
-  public ResponseEntity<String> postShopkeeper(@RequestBody ShopkeeperRequestDTO requestDTO) {
+  public ResponseEntity<String> postShopkeeper(@Valid @RequestBody ShopkeeperRequestDTO requestDTO) {
     shopkeeperService.createShopkeeper(requestDTO);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
