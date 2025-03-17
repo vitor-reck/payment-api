@@ -38,21 +38,21 @@ public class CustomerService {
   public void createCustomer(CustomerRequestDTO requestDTO) {
     customerRepository.findCpf(requestDTO.cpf())
         .ifPresentOrElse(c -> {
-            throw new EntityExistsException(CUSTOMER_ALREADY_EXISTS);
-          },
+              throw new EntityExistsException(CUSTOMER_ALREADY_EXISTS);
+            },
             () -> {
               log.info("Creating customer: {}", gson.toJson(requestDTO));
               customerRepository.save(customerMapper.toEntity(requestDTO));
-        });
+            });
   }
 
   public void removeCustomerById(Long id) {
     customerRepository.findById(id)
         .ifPresentOrElse(c -> {
-          log.info("Removing customer with ID: {}", id);
-          customerRepository.deleteById(id);
-          },
+              log.info("Removing customer with ID: {}", id);
+              customerRepository.deleteById(id);
+            },
             () -> {throw new EntityNotFoundException(CUSTOMER_NOT_FOUND);
-        });
+            });
   }
 }

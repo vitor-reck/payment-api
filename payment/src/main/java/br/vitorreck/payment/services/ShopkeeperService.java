@@ -33,20 +33,20 @@ public class ShopkeeperService {
   public void createShopkeeper(ShopkeeperRequestDTO requestDTO) {
     shopkeeperRepository.findCnpj(requestDTO.cnpj())
         .ifPresentOrElse(s -> {
-            throw new EntityExistsException(SHOPKEEPER_ALREADY_EXISTS);
-          },
+              throw new EntityExistsException(SHOPKEEPER_ALREADY_EXISTS);
+            },
             () -> {
               log.info("Creating shopkeeper: {}", gson.toJson(requestDTO));
               shopkeeperRepository.save(shopkeeperMapper.toEntity(requestDTO));
-        });
+            });
   }
 
   public void removeShopkeeperById(Long id) {
     shopkeeperRepository.findById(id)
         .ifPresentOrElse(s -> {
-          log.info("Removing shopkeeper with ID: {}", id);
-          shopkeeperRepository.deleteById(id);
-          },
+              log.info("Removing shopkeeper with ID: {}", id);
+              shopkeeperRepository.deleteById(id);
+            },
             () -> {throw new EntityNotFoundException(SHOPKEEPER_NOT_FOUND);}
         );
   }
