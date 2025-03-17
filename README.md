@@ -1,4 +1,4 @@
-# payment-api-java
+# payment-api v1
 RESTful API for transactions between customers and shopkeepers, integrating with mock services for tranfer authorization and notification
 
 ## Architecture
